@@ -1,15 +1,15 @@
 {
-	"Author": "Garume",
-	"Name": "PartyFiltering",
-	"Punchline": "Filter your party list.",
-	"Description": "Filter your party list.",
-	"Tags": [
-		"Utility"
-	],
-	"InternalName": "PartyFiltering",
-	"RepoUrl": "https://github.com/Garume/PartyFiltering",
-	"ApplicableVersion": "any",
-	"AcceptsFeedback": true,
-	"DalamudApiLevel": 11
+  "Author": "Garume",
+  "Name": "PartyFiltering",
+  "Punchline": "Filter your party list.",
+  "Description": "Filter your party list.",
+  "Tags": [
+    "Utility"
+  ],
+  "InternalName": "PartyFiltering",
+  "RepoUrl": "https://github.com/Garume/PartyFiltering",
+  "ApplicableVersion": "any",
+  "AcceptsFeedback": true,
+  "DalamudApiLevel": 11
 }
 
