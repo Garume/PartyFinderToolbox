@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace PartyFiltering.Shared.Utility;
+namespace PartyFinderToolbox.Shared.Utility;
 
 public class CompositeDisposable : ICollection<IDisposable>
 {

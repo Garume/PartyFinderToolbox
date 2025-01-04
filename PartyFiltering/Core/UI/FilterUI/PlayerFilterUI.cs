@@ -1,7 +1,7 @@
-using PartyFiltering.Core.Filters;
-using PartyFiltering.Shared.Utility;
+using PartyFinderToolbox.Core.Filters;
+using PartyFinderToolbox.Shared.Utility;
 
-namespace PartyFiltering.Core.UI;
+namespace PartyFinderToolbox.Core.UI;
 
 public class PlayerFilterUI(PlayerFilter target) : FilterUI(target)
 {

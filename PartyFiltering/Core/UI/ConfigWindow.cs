@@ -1,11 +1,21 @@
 using Dalamud.Interface.Windowing;
 using ImGuiNET;
-using PartyFiltering.Shared.UI;
+using PartyFinderToolbox.Shared.UI;
 
-namespace PartyFiltering.Core.UI;
+namespace PartyFinderToolbox.Core.UI;
 
 public class ConfigWindow : Window
 {
+    private static IEnumerable<Tab> _tabs = new Tab[]
+    {
+        new PresetTab(),
+        new FilterTab(),
+        new OptionTab(),
+#if DEBUG
+        new DebugTab()
+#endif
+    };
+
     public ConfigWindow(ImGuiWindowFlags flags = ImGuiWindowFlags.AlwaysAutoResize,
         bool forceMainWindow = false) : base(
         "PartyFiltering", flags, forceMainWindow)
@@ -13,20 +23,13 @@ public class ConfigWindow : Window
         ShowCloseButton = false;
     }
 
-
     public override void Draw()
     {
         if (!IsOpen) return;
 
         if (ImGui.BeginTabBar("PartyFilteringTabs"))
         {
-            var tabs = new Tab[]
-            {
-                new MainTab(),
-                new OptionTab()
-            };
-
-            foreach (var tab in tabs)
+            foreach (var tab in _tabs)
                 if (ImGui.BeginTabItem(tab.Name))
                 {
                     tab.Draw();

@@ -1,9 +1,9 @@
 using Dalamud.IoC;
 using Dalamud.Plugin.Services;
 using Lumina.Excel;
-using PartyFiltering.Shared.Services;
+using PartyFinderToolbox.Shared.Services;
 
-namespace PartyFiltering.Core.Services;
+namespace PartyFinderToolbox.Core.Services;
 
 [LoadService]
 public class DataService : Service<DataService>

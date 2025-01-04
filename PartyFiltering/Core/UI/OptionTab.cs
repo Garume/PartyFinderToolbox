@@ -1,10 +1,10 @@
 using ImGuiNET;
-using PartyFiltering.Core.Serializables;
-using PartyFiltering.Shared.Services;
-using PartyFiltering.Shared.UI;
-using PartyFiltering.Shared.Utility;
+using PartyFinderToolbox.Core.Serializables;
+using PartyFinderToolbox.Shared.Services;
+using PartyFinderToolbox.Shared.UI;
+using PartyFinderToolbox.Shared.Utility;
 
-namespace PartyFiltering.Core.UI;
+namespace PartyFinderToolbox.Core.UI;
 
 public class OptionTab : Tab
 {

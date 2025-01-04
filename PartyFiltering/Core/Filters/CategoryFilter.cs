@@ -1,9 +1,9 @@
 using System.Text.Json.Serialization;
 using Dalamud.Game.Gui.PartyFinder.Types;
 using Lumina.Excel.Sheets;
-using PartyFiltering.Core.Services;
+using PartyFinderToolbox.Core.Services;
 
-namespace PartyFiltering.Core.Filters;
+namespace PartyFinderToolbox.Core.Filters;
 
 [Serializable]
 public record CategoryFilter : Filter

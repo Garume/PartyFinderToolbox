@@ -1,4 +1,4 @@
-namespace PartyFiltering.Core.Serializables;
+namespace PartyFinderToolbox.Core.Serializables;
 
 [Serializable]
 public enum FilterType

@@ -1,7 +1,7 @@
 using ImGuiNET;
-using PartyFiltering.Core.Filters;
+using PartyFinderToolbox.Core.Filters;
 
-namespace PartyFiltering.Core.UI;
+namespace PartyFinderToolbox.Core.UI;
 
 public class OrFilterUI(OrFilter target) : FilterUI(target,
     FilterUIOption.AlwaysEnabled | FilterUIOption.NoSelector | FilterUIOption.NoOption | FilterUIOption.NoDelete)

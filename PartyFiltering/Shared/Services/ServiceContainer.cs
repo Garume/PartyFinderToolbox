@@ -1,6 +1,6 @@
 using Dalamud.Plugin;
 
-namespace PartyFiltering.Shared.Services;
+namespace PartyFinderToolbox.Shared.Services;
 
 public class ServiceContainer(params IIinitializable[] services) : IDisposable, IIinitializable
 {

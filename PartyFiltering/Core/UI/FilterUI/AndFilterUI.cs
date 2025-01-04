@@ -1,7 +1,7 @@
 using ImGuiNET;
-using PartyFiltering.Core.Filters;
+using PartyFinderToolbox.Core.Filters;
 
-namespace PartyFiltering.Core.UI;
+namespace PartyFinderToolbox.Core.UI;
 
 public class AndFilterUI(AndFilter target) : FilterUI(target)
 {

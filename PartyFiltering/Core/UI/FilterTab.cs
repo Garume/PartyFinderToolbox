@@ -1,13 +1,13 @@
 using ImGuiNET;
-using PartyFiltering.Core.Filters;
-using PartyFiltering.Core.Serializables;
-using PartyFiltering.Core.Services;
-using PartyFiltering.Shared.Services;
-using PartyFiltering.Shared.UI;
+using PartyFinderToolbox.Core.Filters;
+using PartyFinderToolbox.Core.Serializables;
+using PartyFinderToolbox.Core.Services;
+using PartyFinderToolbox.Shared.Services;
+using PartyFinderToolbox.Shared.UI;
 
-namespace PartyFiltering.Core.UI;
+namespace PartyFinderToolbox.Core.UI;
 
-public class MainTab : Tab
+public class FilterTab : Tab
 {
     public override string Name => "Main";
 

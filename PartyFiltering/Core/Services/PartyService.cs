@@ -3,11 +3,12 @@ using Dalamud.Game.Gui.PartyFinder.Types;
 using Dalamud.IoC;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Component.GUI;
-using PartyFiltering.Core.Serializables;
-using PartyFiltering.Shared.Services;
-using PartyFiltering.Shared.Utility;
+using PartyFinderToolbox.Core.Serializables;
+using PartyFinderToolbox.Shared.Services;
+using PartyFinderToolbox.Shared.UI.Addon;
+using PartyFinderToolbox.Shared.Utility;
 
-namespace PartyFiltering.Core.Services;
+namespace PartyFinderToolbox.Core.Services;
 
 [LoadService]
 public class PartyService : Service<PartyService>
@@ -40,7 +41,7 @@ public class PartyService : Service<PartyService>
 
             if (config.CurrentAutoRefreshLookingForGroupTime >= config.AutoRefreshLookingForGroupInterval)
             {
-                //RefreshLookingForGroup();
+                RefreshLookingForGroup();
                 config.CurrentAutoRefreshLookingForGroupTime = 0;
                 _lastTimeStamp = Stopwatch.GetTimestamp();
             }
@@ -50,6 +51,7 @@ public class PartyService : Service<PartyService>
     private unsafe void RefreshLookingForGroup()
     {
         var atk = (AtkUnitBase*)GameGui.GetAddonByName(WindowService.LookingForGroupAddonName);
+        if (atk == null || !atk->IsVisible) return;
         try
         {
             var node = atk->GetButtonNodeById(47);
@@ -59,6 +61,22 @@ public class PartyService : Service<PartyService>
         {
             Logger.Error(e.Message, true);
         }
+    }
+
+    public static unsafe LookingForGroupCondition? GetLookingForGroupCondition()
+    {
+        var addon = GetLookingForGroupConditionAddon();
+        return addon == null ? null : new LookingForGroupCondition((IntPtr)addon);
+    }
+
+    public static unsafe AtkUnitBase* GetLookingForGroupConditionAddon()
+    {
+        return (AtkUnitBase*)GameGui.GetAddonByName(WindowService.LookingForGroupConditionAddonName);
+    }
+
+    public static unsafe AtkUnitBase* GetLookingForGroupAddon()
+    {
+        return (AtkUnitBase*)GameGui.GetAddonByName(WindowService.LookingForGroupAddonName);
     }
 
     private void OnReceiveListing(IPartyFinderListing listing, IPartyFinderListingEventArgs args)

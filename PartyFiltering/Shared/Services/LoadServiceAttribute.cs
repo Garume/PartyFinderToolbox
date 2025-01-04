@@ -1,4 +1,4 @@
-namespace PartyFiltering.Shared.Services;
+namespace PartyFinderToolbox.Shared.Services;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class LoadServiceAttribute() : Attribute

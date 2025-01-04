@@ -1,12 +1,12 @@
 using Dalamud.Interface;
 using ImGuiNET;
-using PartyFiltering.Core.Filters;
-using PartyFiltering.Core.Serializables;
-using PartyFiltering.Shared.Services;
-using PartyFiltering.Shared.UI;
-using PartyFiltering.Shared.Utility;
+using PartyFinderToolbox.Core.Filters;
+using PartyFinderToolbox.Core.Serializables;
+using PartyFinderToolbox.Shared.Services;
+using PartyFinderToolbox.Shared.UI;
+using PartyFinderToolbox.Shared.Utility;
 
-namespace PartyFiltering.Core.UI;
+namespace PartyFinderToolbox.Core.UI;
 
 public abstract class FilterUI(Filter target, FilterUIOption option = FilterUIOption.None) : IUI
 {

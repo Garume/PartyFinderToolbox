@@ -1,6 +1,6 @@
-using PartyFiltering.Core.Filters;
+using PartyFinderToolbox.Core.Filters;
 
-namespace PartyFiltering.Core.Serializables;
+namespace PartyFinderToolbox.Core.Serializables;
 
 public class Configuration
 {
@@ -8,4 +8,5 @@ public class Configuration
     public List<Filter> Filters { get; set; } = [];
     public bool EnableAutoRefreshLookingForGroup { get; set; } = true;
     public uint AutoRefreshLookingForGroupInterval { get; set; } = 10;
+    public Dictionary<string, RecruitmentSubDto> RecruitmentSubs { get; set; } = [];
 }

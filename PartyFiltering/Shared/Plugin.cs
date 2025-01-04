@@ -1,9 +1,9 @@
 using System.Reflection;
 using Dalamud.Plugin;
-using PartyFiltering.Shared.Services;
-using PartyFiltering.Shared.Utility;
+using PartyFinderToolbox.Shared.Services;
+using PartyFinderToolbox.Shared.Utility;
 
-namespace PartyFiltering.Shared;
+namespace PartyFinderToolbox.Shared;
 
 public class Plugin : IDalamudPlugin
 {

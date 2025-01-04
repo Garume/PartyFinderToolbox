@@ -1,12 +1,12 @@
 {
   "Author": "Garume",
-  "Name": "PartyFiltering",
+  "Name": "PartyFinderToolbox",
   "Punchline": "Filter your party list.",
   "Description": "Filter your party list.",
   "Tags": [
     "Utility"
   ],
-  "InternalName": "PartyFiltering",
+  "InternalName": "PartyFinderToolbox",
   "RepoUrl": "https://github.com/Garume/PartyFiltering",
   "ApplicableVersion": "any",
   "AcceptsFeedback": true,

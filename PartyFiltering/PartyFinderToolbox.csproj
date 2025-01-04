@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Nullable>enable</Nullable>
-        <Title>PartyFiltering</Title>
+        <Title>PartyFinderToolbox</Title>
         <Authors>Garume</Authors>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     </PropertyGroup>
@@ -48,9 +48,5 @@
 
     <ItemGroup>
         <PackageReference Include="DalamudPackager" Version="2.1.13"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Core\"/>
     </ItemGroup>
 </Project>

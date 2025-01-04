@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace PartyFiltering.Shared.SerializationRepository;
+namespace PartyFinderToolbox.Shared.SerializationRepository;
 
 public class SystemSerializationRepository : ISerializationRepository
 {

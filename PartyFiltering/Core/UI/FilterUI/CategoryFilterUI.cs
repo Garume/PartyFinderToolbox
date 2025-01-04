@@ -1,10 +1,10 @@
 using Dalamud.Game.Gui.PartyFinder.Types;
 using ImGuiNET;
 using Lumina.Excel.Sheets;
-using PartyFiltering.Core.Filters;
-using PartyFiltering.Core.Services;
+using PartyFinderToolbox.Core.Filters;
+using PartyFinderToolbox.Core.Services;
 
-namespace PartyFiltering.Core.UI;
+namespace PartyFinderToolbox.Core.UI;
 
 public class CategoryFilterUI(CategoryFilter target) : FilterUI(target)
 {

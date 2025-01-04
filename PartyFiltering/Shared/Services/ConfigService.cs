@@ -1,7 +1,7 @@
 using System.Text;
-using PartyFiltering.Shared.SerializationRepository;
+using PartyFinderToolbox.Shared.SerializationRepository;
 
-namespace PartyFiltering.Shared.Services;
+namespace PartyFinderToolbox.Shared.Services;
 
 public abstract class ConfigService<T> : Service<ConfigService<T>> where T : class
 {

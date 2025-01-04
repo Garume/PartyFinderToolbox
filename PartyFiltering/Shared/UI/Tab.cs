@@ -1,4 +1,4 @@
-namespace PartyFiltering.Shared.UI;
+namespace PartyFinderToolbox.Shared.UI;
 
 public abstract class Tab : IUI
 {

@@ -1,4 +1,4 @@
-namespace PartyFiltering.Core.UI;
+namespace PartyFinderToolbox.Core.UI;
 
 [Flags]
 public enum FilterUIOption : byte

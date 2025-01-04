@@ -1,7 +1,7 @@
-using PartyFiltering.Core.Serializables;
-using PartyFiltering.Shared.Services;
+using PartyFinderToolbox.Core.Serializables;
+using PartyFinderToolbox.Shared.Services;
 
-namespace PartyFiltering.Core.Services;
+namespace PartyFinderToolbox.Core.Services;
 
 [LoadService(Priority = 500)]
 public class ConfigurationConfigService : ConfigService<Configuration>

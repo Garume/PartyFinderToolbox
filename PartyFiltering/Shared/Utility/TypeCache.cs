@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace PartyFiltering.Shared.Utility;
+namespace PartyFinderToolbox.Shared.Utility;
 
 public static class TypeCache
 {

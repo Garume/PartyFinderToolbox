@@ -2,16 +2,17 @@ using Dalamud.Interface.Windowing;
 using Dalamud.IoC;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Component.GUI;
-using PartyFiltering.Core.UI;
-using PartyFiltering.Shared.Services;
-using PartyFiltering.Shared.Utility;
+using PartyFinderToolbox.Core.UI;
+using PartyFinderToolbox.Shared.Services;
+using PartyFinderToolbox.Shared.Utility;
 
-namespace PartyFiltering.Core.Services;
+namespace PartyFinderToolbox.Core.Services;
 
 [LoadService]
 public class WindowService : Service<WindowService>
 {
     public const string LookingForGroupAddonName = "LookingForGroup";
+    public const string LookingForGroupConditionAddonName = "LookingForGroupCondition";
     private readonly ConfigWindow _configWindow = new();
     private readonly CompositeDisposable _disposables = [];
     [PluginService] private static IGameGui GameGui { get; set; } = null!;

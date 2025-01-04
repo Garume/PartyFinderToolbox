@@ -1,4 +1,4 @@
-namespace PartyFiltering.Shared.SerializationRepository;
+namespace PartyFinderToolbox.Shared.SerializationRepository;
 
 public interface ISerializationRepository
 {

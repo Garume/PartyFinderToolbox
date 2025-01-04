@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyFiltering", "PartyFiltering\PartyFiltering.csproj", "{67B651E8-A31F-4CA8-98B6-B5E415B6E9CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyFinderToolbox", "PartyFiltering\PartyFinderToolbox.csproj", "{67B651E8-A31F-4CA8-98B6-B5E415B6E9CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

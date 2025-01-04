@@ -1,7 +1,7 @@
 using Dalamud.Plugin;
-using PartyFiltering.Shared.Utility;
+using PartyFinderToolbox.Shared.Utility;
 
-namespace PartyFiltering.Shared.Services;
+namespace PartyFinderToolbox.Shared.Services;
 
 public abstract class Service<T> : IIinitializable, IDisposable where T : class
 {

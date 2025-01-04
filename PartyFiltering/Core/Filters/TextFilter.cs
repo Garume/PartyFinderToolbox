@@ -1,6 +1,6 @@
 using Dalamud.Game.Gui.PartyFinder.Types;
 
-namespace PartyFiltering.Core.Filters;
+namespace PartyFinderToolbox.Core.Filters;
 
 [Serializable]
 public record TextFilter : Filter

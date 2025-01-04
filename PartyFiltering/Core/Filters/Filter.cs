@@ -1,9 +1,9 @@
 using System.Text.Json.Serialization;
 using Dalamud.Game.Gui.PartyFinder.Types;
-using PartyFiltering.Core.Serializables;
-using PartyFiltering.Shared.Services;
+using PartyFinderToolbox.Core.Serializables;
+using PartyFinderToolbox.Shared.Services;
 
-namespace PartyFiltering.Core.Filters;
+namespace PartyFinderToolbox.Core.Filters;
 
 [Serializable]
 [JsonDerivedType(typeof(OrFilter), nameof(OrFilter))]
