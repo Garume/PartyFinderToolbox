@@ -72,8 +72,8 @@ public static class RecruitmentSubConverter
         for (var i = 0; i < dto.MemberContentIds.Length; i++) info->MemberContentIds[i] = dto.MemberContentIds[i];
 
         for (var i = 0; i < dto.SlotFlags.Length; i++) info->SlotFlags[i] = dto.SlotFlags[i];
-        
-        info->CommentString = new string(' ', 0x100 - 1);
+
+        info->CommentString = new string(' ', 192 - 1);
         info->CommentString = dto.CommentString;
     }
 }
