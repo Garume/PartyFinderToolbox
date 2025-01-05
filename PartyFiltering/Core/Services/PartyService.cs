@@ -69,6 +69,17 @@ public class PartyService : Service<PartyService>
         return addon == null ? null : new LookingForGroupCondition((IntPtr)addon);
     }
 
+    public static unsafe SelectYesNo? GetSelectYesNo()
+    {
+        var addon = GetSelectYesNoAddon();
+        return addon == null ? null : new SelectYesNo((IntPtr)addon);
+    }
+
+    public static unsafe AtkUnitBase* GetSelectYesNoAddon()
+    {
+        return (AtkUnitBase*)GameGui.GetAddonByName(WindowService.SelectYesNoAddonName);
+    }
+
     public static unsafe AtkUnitBase* GetLookingForGroupConditionAddon()
     {
         return (AtkUnitBase*)GameGui.GetAddonByName(WindowService.LookingForGroupConditionAddonName);

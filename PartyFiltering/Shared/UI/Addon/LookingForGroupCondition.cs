@@ -12,6 +12,9 @@ public unsafe class LookingForGroupCondition(nint addon)
     public AtkComponentButton* CancelButton => Base->GetButtonNodeById(112);
     public AtkComponentButton* ResetButton => Base->GetButtonNodeById(110);
 
+    public AtkComponentButton* CloseButton =>
+        Base->GetComponentNodeById(113)->Component->UldManager.SearchNodeById(7)->GetAsAtkComponentButton();
+
     public AtkTextNode* CommentNode =>
         Base->GetComponentNodeById(22)->Component->UldManager.SearchNodeById(16)->GetAsAtkTextNode();
 
@@ -38,6 +41,13 @@ public unsafe class LookingForGroupCondition(nint addon)
     public void Reset()
     {
         ResetButton->Click(Base);
+    }
+
+    public void Close()
+    {
+        var evt = CloseButton->AtkComponentBase.OwnerNode->AtkResNode.AtkEventManager.Event;
+        evt->State.StateFlags = AtkEventStateFlags.Handled;
+        Base->ReceiveEvent(evt->State.EventType, (int)evt->Param, evt);
     }
 
     public void SelectDutyCategory(byte i)

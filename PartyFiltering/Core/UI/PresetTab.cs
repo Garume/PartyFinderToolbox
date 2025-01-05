@@ -29,7 +29,7 @@ public class PresetTab : Tab
             foreach (var info in config.RecruitmentSubs)
             {
                 ImGui.PushID($"recruitmentSubs{index}");
-                if (ImGui.Selectable($"{info.Key}##recruitmentSubs{index}")) _selectedPreset = info.Key;
+                if (ImGui.Selectable($"{info.Key}")) _selectedPreset = info.Key;
 
                 if (ImGui.IsItemClicked(ImGuiMouseButton.Right)) ImGui.OpenPopup("LayoutContext");
 
@@ -103,20 +103,30 @@ public class PresetTab : Tab
 
                 if (ImGui.Button("Apply"))
                 {
+                    var condition = PartyService.GetLookingForGroupCondition();
+                    if (condition == null)
+                    {
+                        PartyService.GetLookingForGroupAddon()->GetComponentNodeById(46)->GetAsAtkComponentButton()->
+                            Click(PartyService.GetLookingForGroupAddon());
+                        condition = PartyService.GetLookingForGroupCondition();
+                    }
+
+                    if (selectedPreset.NumberOfGroups == 1)
+                        condition?.Normal();
+                    else
+                        condition?.Alliance();
+
+                    condition?.Close();
+
                     RecruitmentSubConverter.Apply(selectedPreset);
 
-                    var condition = PartyService.GetLookingForGroupConditionAddon();
-                    if (condition == null) return;
-                    TaskService.AddTask("ApplyPreset", 50, () =>
+
+                    TaskService.AddTask("ApplyPreset", 100, () =>
                     {
                         PartyService.GetLookingForGroupAddon()->GetComponentNodeById(46)->GetAsAtkComponentButton()->
                             Click(PartyService.GetLookingForGroupAddon());
                     });
-
-                    condition->Close(false);
                 }
-
-                ImGui.EndDisabled();
             }
 
             ImGui.EndTable();

@@ -13,6 +13,7 @@ public class WindowService : Service<WindowService>
 {
     public const string LookingForGroupAddonName = "LookingForGroup";
     public const string LookingForGroupConditionAddonName = "LookingForGroupCondition";
+    public const string SelectYesNoAddonName = "SelectYesNo";
     private readonly ConfigWindow _configWindow = new();
     private readonly CompositeDisposable _disposables = [];
     [PluginService] private static IGameGui GameGui { get; set; } = null!;
