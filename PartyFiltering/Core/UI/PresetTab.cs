@@ -3,7 +3,6 @@ using ImGuiNET;
 using PartyFinderToolbox.Core.Serializables;
 using PartyFinderToolbox.Core.Services;
 using PartyFinderToolbox.Shared.UI;
-using PartyFinderToolbox.Shared.Utility;
 
 namespace PartyFinderToolbox.Core.UI;
 
@@ -101,31 +100,12 @@ public class PresetTab : Tab
                 ImGui.Text($"Comment:{selectedPreset.CommentString}");
 
 
-                if (ImGui.Button("Apply"))
+                if (ImGui.Button("Apply")) PartyService.ApplyCondition(selectedPreset);
+                ImGui.SameLine();
+                if (ImGui.Button("Apply and Start Party"))
                 {
-                    var condition = PartyService.GetLookingForGroupCondition();
-                    if (condition == null)
-                    {
-                        PartyService.GetLookingForGroupAddon()->GetComponentNodeById(46)->GetAsAtkComponentButton()->
-                            Click(PartyService.GetLookingForGroupAddon());
-                        condition = PartyService.GetLookingForGroupCondition();
-                    }
-
-                    if (selectedPreset.NumberOfGroups == 1)
-                        condition?.Normal();
-                    else
-                        condition?.Alliance();
-
-                    condition?.Close();
-
-                    RecruitmentSubConverter.Apply(selectedPreset);
-
-
-                    TaskService.AddTask("ApplyPreset", 100, () =>
-                    {
-                        PartyService.GetLookingForGroupAddon()->GetComponentNodeById(46)->GetAsAtkComponentButton()->
-                            Click(PartyService.GetLookingForGroupAddon());
-                    });
+                    PartyService.ApplyCondition(selectedPreset);
+                    PartyService.GetLookingForGroupCondition()?.Recruit();
                 }
             }
 
