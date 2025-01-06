@@ -15,4 +15,9 @@ public static class AddonHelper
         resetEvt->State.StateFlags = AtkEventStateFlags.None;
         addon->ReceiveEvent(resetEvt->State.EventType, (int)resetEvt->Param, btnRes.AtkEventManager.Event);
     }
+    
+    public static unsafe bool IsReady(this AtkUnitBase addon)
+    {
+        return addon.IsVisible && addon.IsFullyLoaded() && addon.UldManager.LoadedState == AtkLoadState.Loaded;
+    }
 }

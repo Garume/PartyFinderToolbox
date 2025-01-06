@@ -63,22 +63,39 @@ public class PartyService : Service<PartyService>
         }
     }
 
+    public static unsafe void ApplyCondition(RecruitmentSubDto info)
+    {
+        var condition = GetLookingForGroupCondition();
+        if (condition == null)
+        {
+            GetLookingForGroupAddon()->GetComponentNodeById(46)->GetAsAtkComponentButton()->
+                Click(GetLookingForGroupAddon());
+            condition = GetLookingForGroupCondition();
+        }
+
+        if (info.NumberOfGroups == 1)
+            condition?.Normal();
+        else
+            condition?.Alliance();
+
+        condition?.Close();
+
+        RecruitmentSubConverter.Apply(info);
+
+
+        TaskService.AddTask("ApplyPreset", 100, () =>
+        {
+            GetLookingForGroupAddon()->GetComponentNodeById(46)->GetAsAtkComponentButton()->
+                Click(GetLookingForGroupAddon());
+        });
+    }
+
     public static unsafe LookingForGroupCondition? GetLookingForGroupCondition()
     {
         var addon = GetLookingForGroupConditionAddon();
         return addon == null ? null : new LookingForGroupCondition((IntPtr)addon);
     }
 
-    public static unsafe SelectYesNo? GetSelectYesNo()
-    {
-        var addon = GetSelectYesNoAddon();
-        return addon == null ? null : new SelectYesNo((IntPtr)addon);
-    }
-
-    public static unsafe AtkUnitBase* GetSelectYesNoAddon()
-    {
-        return (AtkUnitBase*)GameGui.GetAddonByName(WindowService.SelectYesNoAddonName);
-    }
 
     public static unsafe AtkUnitBase* GetLookingForGroupConditionAddon()
     {
@@ -89,6 +106,7 @@ public class PartyService : Service<PartyService>
     {
         return (AtkUnitBase*)GameGui.GetAddonByName(WindowService.LookingForGroupAddonName);
     }
+
 
     private void OnReceiveListing(IPartyFinderListing listing, IPartyFinderListingEventArgs args)
     {
