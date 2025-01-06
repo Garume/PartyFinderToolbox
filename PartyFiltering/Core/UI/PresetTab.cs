@@ -102,11 +102,7 @@ public class PresetTab : Tab
 
                 if (ImGui.Button("Apply")) PartyService.ApplyCondition(selectedPreset);
                 ImGui.SameLine();
-                if (ImGui.Button("Apply and Start Party"))
-                {
-                    PartyService.ApplyCondition(selectedPreset);
-                    PartyService.GetLookingForGroupCondition()?.Recruit();
-                }
+                if (ImGui.Button("Apply and Start Party")) PartyService.ApplyConditionAndStart(selectedPreset);
             }
 
             ImGui.EndTable();

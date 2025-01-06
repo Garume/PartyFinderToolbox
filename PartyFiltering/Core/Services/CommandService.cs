@@ -1,12 +1,7 @@
-using System.Collections;
 using Dalamud.Game.Command;
 using Dalamud.IoC;
 using Dalamud.Plugin.Services;
-using FFXIVClientStructs.FFXIV.Component.GUI;
-using PartyFinderToolbox.Core.Serializables;
 using PartyFinderToolbox.Shared.Services;
-using PartyFinderToolbox.Shared.Services.Task.YieldInstruction;
-using PartyFinderToolbox.Shared.Utility;
 
 namespace PartyFinderToolbox.Core.Services;
 
@@ -30,44 +25,7 @@ public class CommandService : Service<CommandService>
             var info = ConfigurationConfigService.Config.RecruitmentSubs[presetName];
             Logger.Information($"Preset {presetName} created with comment: {info.CommentString}", true);
 
-            TaskService.StartCoroutine(ApplyCondition(info));
+            PartyService.ApplyCondition(info);
         }
-    }
-
-    public IEnumerator ApplyCondition(RecruitmentSubDto info)
-    {
-        if (!DisplayLookingForGroupWindow()) ChatService.ExecuteCommand("/pfinder");
-        yield return new WaitUntil(DisplayLookingForGroupWindow);
-        ClickCondition();
-        yield return new WaitUntil(DisplayLookingForGroupConditionWindow);
-        RecruitmentSubConverter.Apply(info);
-        yield return new WaitForSeconds(1);
-        
-        ChatService.ExecuteCommand("/pfinder");
-        yield return new WaitWile(DisplayLookingForGroupWindow);
-        
-        ChatService.ExecuteCommand("/pfinder");
-        yield return new WaitUntil(DisplayLookingForGroupWindow);
-        ClickCondition();
-
-        yield return null;
-    }
-
-    public unsafe bool DisplayLookingForGroupWindow()
-    {
-        var addon = PartyService.GetLookingForGroupAddon();
-        return addon != null && addon->IsReady();
-    }
-    
-    public unsafe bool DisplayLookingForGroupConditionWindow()
-    {
-        var addon = PartyService.GetLookingForGroupConditionAddon();
-        return addon != null && addon->IsReady();
-    }
-
-    public unsafe void ClickCondition()
-    {
-        PartyService.GetLookingForGroupAddon()->GetComponentNodeById(46)->GetAsAtkComponentButton()->Click(
-            PartyService.GetLookingForGroupAddon());
     }
 }

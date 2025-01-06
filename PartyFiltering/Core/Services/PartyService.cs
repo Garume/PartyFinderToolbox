@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Diagnostics;
 using Dalamud.Game.Gui.PartyFinder.Types;
 using Dalamud.IoC;
@@ -5,6 +6,8 @@ using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using PartyFinderToolbox.Core.Serializables;
 using PartyFinderToolbox.Shared.Services;
+using PartyFinderToolbox.Shared.Services.Task;
+using PartyFinderToolbox.Shared.Services.Task.YieldInstruction;
 using PartyFinderToolbox.Shared.UI.Addon;
 using PartyFinderToolbox.Shared.Utility;
 
@@ -63,46 +66,96 @@ public class PartyService : Service<PartyService>
         }
     }
 
-    public static unsafe void ApplyCondition(RecruitmentSubDto info)
+    public static void ApplyCondition(RecruitmentSubDto info)
     {
-        var condition = GetLookingForGroupCondition();
-        if (condition == null)
-        {
-            GetLookingForGroupAddon()->GetComponentNodeById(46)->GetAsAtkComponentButton()->
-                Click(GetLookingForGroupAddon());
-            condition = GetLookingForGroupCondition();
-        }
+        TaskService.StartCoroutine(ApplyConditionCoroutine(info));
+    }
 
+    public static void ApplyConditionAndStart(RecruitmentSubDto info)
+    {
+        TaskService.StartCoroutine(ApplyConditionAndStartCoroutine(info));
+    }
+
+    private static IEnumerator ApplyConditionCoroutine(RecruitmentSubDto info)
+    {
+        if (!DisplayLookingForGroupWindow()) ChatService.ExecuteCommand("/pfinder");
+        yield return new WaitUntil(DisplayLookingForGroupWindow);
+        ClickCondition();
+        yield return new WaitUntil(DisplayLookingForGroupConditionWindow);
+        var condition = GetLookingForGroupCondition();
         if (info.NumberOfGroups == 1)
             condition?.Normal();
         else
             condition?.Alliance();
-
-        condition?.Close();
-
         RecruitmentSubConverter.Apply(info);
+        yield return new WaitForSeconds(1);
 
+        ChatService.ExecuteCommand("/pfinder");
+        yield return new WaitWile(DisplayLookingForGroupWindow);
 
-        TaskService.AddTask("ApplyPreset", 100, () =>
-        {
-            GetLookingForGroupAddon()->GetComponentNodeById(46)->GetAsAtkComponentButton()->
-                Click(GetLookingForGroupAddon());
-        });
+        ChatService.ExecuteCommand("/pfinder");
+        yield return new WaitUntil(DisplayLookingForGroupWindow);
+        ClickCondition();
+
+        yield return null;
     }
 
-    public static unsafe LookingForGroupCondition? GetLookingForGroupCondition()
+    private static IEnumerator ApplyConditionAndStartCoroutine(RecruitmentSubDto info)
+    {
+        if (!DisplayLookingForGroupWindow()) ChatService.ExecuteCommand("/pfinder");
+        yield return new WaitUntil(DisplayLookingForGroupWindow);
+        ClickCondition();
+        yield return new WaitUntil(DisplayLookingForGroupConditionWindow);
+        var condition = GetLookingForGroupCondition();
+        if (info.NumberOfGroups == 1)
+            condition?.Normal();
+        else
+            condition?.Alliance();
+        RecruitmentSubConverter.Apply(info);
+        yield return new WaitForSeconds(1);
+
+        ChatService.ExecuteCommand("/pfinder");
+        yield return new WaitWile(DisplayLookingForGroupWindow);
+
+        ChatService.ExecuteCommand("/pfinder");
+        yield return new WaitUntil(DisplayLookingForGroupWindow);
+        ClickCondition();
+        yield return new WaitUntil(DisplayLookingForGroupConditionWindow);
+        GetLookingForGroupCondition()?.Recruit();
+        yield return null;
+    }
+
+    private static unsafe bool DisplayLookingForGroupWindow()
+    {
+        var addon = GetLookingForGroupAddon();
+        return addon != null && addon->IsReady();
+    }
+
+    private static unsafe bool DisplayLookingForGroupConditionWindow()
+    {
+        var addon = GetLookingForGroupConditionAddon();
+        return addon != null && addon->IsReady();
+    }
+
+    private static unsafe void ClickCondition()
+    {
+        GetLookingForGroupAddon()->GetComponentNodeById(46)->GetAsAtkComponentButton()->Click(
+            GetLookingForGroupAddon());
+    }
+
+    private static unsafe LookingForGroupCondition? GetLookingForGroupCondition()
     {
         var addon = GetLookingForGroupConditionAddon();
         return addon == null ? null : new LookingForGroupCondition((IntPtr)addon);
     }
 
 
-    public static unsafe AtkUnitBase* GetLookingForGroupConditionAddon()
+    private static unsafe AtkUnitBase* GetLookingForGroupConditionAddon()
     {
         return (AtkUnitBase*)GameGui.GetAddonByName(WindowService.LookingForGroupConditionAddonName);
     }
 
-    public static unsafe AtkUnitBase* GetLookingForGroupAddon()
+    private static unsafe AtkUnitBase* GetLookingForGroupAddon()
     {
         return (AtkUnitBase*)GameGui.GetAddonByName(WindowService.LookingForGroupAddonName);
     }

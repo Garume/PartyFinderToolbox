@@ -30,18 +30,13 @@ public class CoroutineManager
 
         // 登録されているコルーチンを順番に更新
         // forではなく、foreachで回すと走査中の要素削除が難しいので注意
-        for (var i = 0; i < _coroutines.Count; i++)
+        foreach (var routine in _coroutines)
         {
-            var routine = _coroutines[i];
-
             // 現在の要素を1ステップ進める
             var running = AdvanceCoroutine(routine);
 
             // 進行できなかった(=コルーチンが終了した)場合
-            if (!running)
-            {
-                finishedCoroutines.Add(routine);
-            }
+            if (!running) finishedCoroutines.Add(routine);
         }
 
         // 終了したコルーチンをリストから削除
@@ -57,15 +52,9 @@ public class CoroutineManager
     private static bool AdvanceCoroutine(IEnumerator routine)
     {
         var current = routine.Current;
-        
-        if (current is IYieldInstruction {KeepWaiting:true} instruction)
-        {
-            return true;
-        }
-        
-        Logger.Warning($"次へ", true);
-        
-        // 次のステップに進む
+
+        if (current is IYieldInstruction { KeepWaiting: true }) return true;
+
         return routine.MoveNext();
     }
 }
