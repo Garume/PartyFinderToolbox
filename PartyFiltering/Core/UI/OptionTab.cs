@@ -1,5 +1,6 @@
 using ImGuiNET;
 using PartyFinderToolbox.Core.Serializables;
+using PartyFinderToolbox.Core.Services;
 using PartyFinderToolbox.Shared.Services;
 using PartyFinderToolbox.Shared.UI;
 using PartyFinderToolbox.Shared.Utility;
@@ -22,6 +23,14 @@ public class OptionTab : Tab
             config.EnableAutoRefreshLookingForGroup);
         config.AutoRefreshLookingForGroupInterval = ImGuiValue.InputUInt("Interval##AutoRefreshLookingForGroupInterval",
             config.AutoRefreshLookingForGroupInterval, 1, 60);
+        ImGui.Unindent();
+        ImGui.Separator();
+        ImGui.Text("Reload Party");
+        ImGui.Indent();
+        if (ImGui.Button("Reload Party"))
+        {
+            PartyService.ReloadParty();
+        }
         ImGui.Unindent();
         ImGui.Separator();
     }

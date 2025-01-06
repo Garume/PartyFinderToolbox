@@ -76,6 +76,32 @@ public class PartyService : Service<PartyService>
         TaskService.StartCoroutine(ApplyConditionAndStartCoroutine(info));
     }
 
+    public static void ReloadParty()
+    {
+        TaskService.StartCoroutine(ReloadPartyCoroutine());
+    }
+
+    private static IEnumerator ReloadPartyCoroutine()
+    {
+        if (DisplayLookingForGroupWindow()) ChatService.ExecuteCommand("/pfinder");
+        yield return new WaitWile(DisplayLookingForGroupWindow);
+        ChatService.ExecuteCommand("/pfinder");
+        yield return new WaitUntil(DisplayLookingForGroupWindow);
+        ClickCondition();
+        yield return new WaitForSeconds(1);
+        var detail = DisplayLookingForGroupDetailWindow();
+        if (!detail)
+        {
+            Logger.Error("Failed to reload party", true);
+            yield break;
+        }
+        var lookingForGroupDetail = GetLookingForGroupDetail();
+        lookingForGroupDetail?.Change();
+        yield return new WaitUntil(DisplayLookingForGroupConditionWindow);
+        yield return new WaitForSeconds(1);
+        GetLookingForGroupCondition()?.Recruit();
+    }
+
     private static IEnumerator ApplyConditionCoroutine(RecruitmentSubDto info)
     {
         if (!DisplayLookingForGroupWindow()) ChatService.ExecuteCommand("/pfinder");
@@ -136,6 +162,12 @@ public class PartyService : Service<PartyService>
         var addon = GetLookingForGroupConditionAddon();
         return addon != null && addon->IsReady();
     }
+    
+    private static unsafe bool DisplayLookingForGroupDetailWindow()
+    {
+        var addon = GetLookingForGroupDetailAddon();
+        return addon != null && addon->IsReady();
+    }
 
     private static unsafe void ClickCondition()
     {
@@ -148,6 +180,12 @@ public class PartyService : Service<PartyService>
         var addon = GetLookingForGroupConditionAddon();
         return addon == null ? null : new LookingForGroupCondition((IntPtr)addon);
     }
+    
+    private static unsafe LookingForGroupDetail? GetLookingForGroupDetail()
+    {
+        var addon = GetLookingForGroupDetailAddon();
+        return addon == null ? null : new LookingForGroupDetail((IntPtr)addon);
+    }
 
 
     private static unsafe AtkUnitBase* GetLookingForGroupConditionAddon()
@@ -158,6 +196,11 @@ public class PartyService : Service<PartyService>
     private static unsafe AtkUnitBase* GetLookingForGroupAddon()
     {
         return (AtkUnitBase*)GameGui.GetAddonByName(WindowService.LookingForGroupAddonName);
+    }
+    
+    private static unsafe AtkUnitBase* GetLookingForGroupDetailAddon()
+    {
+        return (AtkUnitBase*)GameGui.GetAddonByName(WindowService.LookingForGroupDetailAddonName);
     }
 
 

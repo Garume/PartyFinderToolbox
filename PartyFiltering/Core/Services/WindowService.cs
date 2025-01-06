@@ -13,6 +13,7 @@ public class WindowService : Service<WindowService>
 {
     public const string LookingForGroupAddonName = "LookingForGroup";
     public const string LookingForGroupConditionAddonName = "LookingForGroupCondition";
+    public const string LookingForGroupDetailAddonName = "LookingForGroupDetail";
     public const string SelectYesNoAddonName = "SelectYesNo";
     private readonly ConfigWindow _configWindow = new();
     private readonly CompositeDisposable _disposables = [];
