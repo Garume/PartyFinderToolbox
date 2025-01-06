@@ -3,7 +3,7 @@ using PartyFinderToolbox.Shared.Utility;
 
 namespace PartyFinderToolbox.Shared.UI.Addon;
 
-public  unsafe class SelectYesNo(nint addon)
+public unsafe class SelectYesNo(nint addon)
 {
     private AtkUnitBase* Base { get; } = (AtkUnitBase*)addon;
 

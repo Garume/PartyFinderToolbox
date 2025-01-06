@@ -8,7 +8,6 @@ namespace PartyFinderToolbox.Core.UI;
 
 public class PresetTab : Tab
 {
-    private DateTime _lastTimeStamp;
     private string _newPresetName = "";
     private string _selectedPreset = "";
     public override string Name => "Preset";

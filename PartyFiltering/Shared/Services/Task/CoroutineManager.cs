@@ -1,6 +1,6 @@
 using System.Collections;
-using PartyFinderToolbox.Shared.Services;
-using PartyFinderToolbox.Shared.Services.Task;
+
+namespace PartyFinderToolbox.Shared.Services.Task;
 
 public class CoroutineManager
 {

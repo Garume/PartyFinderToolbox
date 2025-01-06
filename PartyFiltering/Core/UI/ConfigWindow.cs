@@ -18,7 +18,7 @@ public class ConfigWindow : Window
 
     public ConfigWindow(ImGuiWindowFlags flags = ImGuiWindowFlags.AlwaysAutoResize,
         bool forceMainWindow = false) : base(
-        "PartyFiltering", flags, forceMainWindow)
+        "PartyFinderToolbox", flags, forceMainWindow)
     {
         ShowCloseButton = false;
     }

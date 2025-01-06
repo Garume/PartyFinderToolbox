@@ -13,7 +13,6 @@ public class WaitForSeconds(int second) : IYieldInstruction
             if (_startTimeStamp == 0) _startTimeStamp = Stopwatch.GetTimestamp();
 
             var elapsed = Stopwatch.GetElapsedTime(_startTimeStamp);
-            Logger.Warning($"Elapsed: {elapsed.Seconds} bool:{elapsed.Seconds < second}",true);
             return elapsed.Seconds < second;
         }
     }

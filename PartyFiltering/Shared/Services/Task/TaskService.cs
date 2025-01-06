@@ -2,9 +2,8 @@ using System.Collections;
 using System.Diagnostics;
 using Dalamud.IoC;
 using Dalamud.Plugin.Services;
-using PartyFinderToolbox.Shared.Services;
 
-namespace PartyFinderToolbox.Core.Services;
+namespace PartyFinderToolbox.Shared.Services.Task;
 
 [LoadService]
 public class TaskService : Service<TaskService>

@@ -9,7 +9,7 @@ namespace PartyFinderToolbox.Core.UI;
 
 public class FilterTab : Tab
 {
-    public override string Name => "Main";
+    public override string Name => "Filter";
 
     public override void Draw()
     {
