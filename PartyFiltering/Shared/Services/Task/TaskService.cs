@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Diagnostics;
 using Dalamud.IoC;
 using Dalamud.Plugin.Services;
@@ -9,6 +10,7 @@ namespace PartyFinderToolbox.Core.Services;
 public class TaskService : Service<TaskService>
 {
     private static readonly Queue<Task> Tasks = new();
+    private static CoroutineManager _coroutineManager = new();
     private Task? _currentTask;
     [PluginService] private static IFramework Framework { get; set; } = null!;
 
@@ -16,6 +18,14 @@ public class TaskService : Service<TaskService>
     {
         Framework.Update += Update;
         Disposables.Add(() => Framework.Update -= Update);
+
+        Framework.Update += CoroutineUpdate;
+        Disposables.Add(() => Framework.Update -= CoroutineUpdate);
+    }
+
+    private static void CoroutineUpdate(IFramework framework)
+    {
+        _coroutineManager.Update();
     }
 
     private void Update(IFramework framework)
@@ -25,7 +35,6 @@ public class TaskService : Service<TaskService>
             _currentTask = Tasks.Dequeue();
             _currentTask.StartTime = Stopwatch.GetTimestamp();
         }
-
 
         if (_currentTask != null)
         {
@@ -62,6 +71,16 @@ public class TaskService : Service<TaskService>
             Duration = duration,
             Action = action
         });
+    }
+
+    public static void StartCoroutine(IEnumerator routine)
+    {
+        _coroutineManager.Start(routine);
+    }
+
+    public static void StopCoroutine(IEnumerator routine)
+    {
+        _coroutineManager.Stop(routine);
     }
 }
 
