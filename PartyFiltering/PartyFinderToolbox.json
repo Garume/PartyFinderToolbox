@@ -10,6 +10,7 @@
   "RepoUrl": "https://github.com/Garume/PartyFinderToolbox",
   "ApplicableVersion": "any",
   "AcceptsFeedback": true,
-  "DalamudApiLevel": 11
+  "DalamudApiLevel": 11,
+  "AssemblyVersion": "1.0.1"
 }
 
