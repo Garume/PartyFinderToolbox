@@ -15,6 +15,18 @@ public abstract class ConfigService<T> : Service<ConfigService<T>> where T : cla
 
     protected abstract string ConfigFile { get; }
 
+    public static bool TryGetConfig(out T config)
+    {
+        if (Config == null)
+        {
+            config = Activator.CreateInstance<T>();
+            return false;
+        }
+
+        config = Config;
+        return true;
+    }
+
     protected override void Initialize()
     {
         _pluginConfigDirectoryPath = PluginInterface.GetPluginConfigDirectory();
