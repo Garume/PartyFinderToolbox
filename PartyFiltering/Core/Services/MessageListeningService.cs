@@ -2,6 +2,7 @@ using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.IoC;
 using Dalamud.Plugin.Services;
+using Dalamud.Utility;
 using PartyFinderToolbox.Shared.Services;
 
 namespace PartyFinderToolbox.Core.Services;
@@ -27,10 +28,9 @@ public class MessageListeningService : Service<MessageListeningService>
         MessageReceived?.Invoke(message.TextValue);
 
         if (!ConfigurationConfigService.TryGetConfig(out var config)) return;
-        
-        Logger.Debug($"Message received: {message.TextValue}");
-        
-        if (config.EnableAutoReloadParty && message.TextValue.Contains(config.AutoReloadPartyMessage))
+
+        if (config.EnableAutoReloadParty && !message.TextValue.IsNullOrEmpty() &&
+            message.TextValue.Contains(config.AutoReloadPartyMessage))
             PartyService.ReloadParty();
     }
 }

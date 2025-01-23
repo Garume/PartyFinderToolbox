@@ -27,10 +27,11 @@ public class OptionTab : Tab
         ImGui.Separator();
         ImGui.Text("Reload Party");
         ImGui.Indent();
-        if (ImGui.Button("Reload Party"))
-        {
-            PartyService.ReloadParty();
-        }
+        config.EnableAutoReloadParty =
+            ImGuiValue.Checkbox("Enable##EnableAutoReloadParty", config.EnableAutoReloadParty);
+        config.AutoReloadPartyMessage =
+            ImGuiValue.InputText("Message##AutoReloadPartyMessage", config.AutoReloadPartyMessage, 100);
+        if (ImGui.Button("Reload Party")) PartyService.ReloadParty();
         ImGui.Unindent();
         ImGui.Separator();
     }
