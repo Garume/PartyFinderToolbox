@@ -29,8 +29,13 @@ public class MessageListeningService : Service<MessageListeningService>
 
         if (!ConfigurationConfigService.TryGetConfig(out var config)) return;
 
-        if (config.EnableAutoReloadParty && !message.TextValue.IsNullOrEmpty() &&
-            message.TextValue.Contains(config.AutoReloadPartyMessage))
+        if (ConditionService.IsUsingPartyFinder() && 
+            config.EnableAutoReloadParty && 
+            !message.TextValue.IsNullOrEmpty() && 
+            string.Equals(message.TextValue ,config.AutoReloadPartyMessage, StringComparison.Ordinal))
+        {
+            Logger.Debug($"Auto reload party message received {message.TextValue}");
             PartyService.ReloadParty();
+        }
     }
 }
